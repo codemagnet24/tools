@@ -1,0 +1,14 @@
+/*style*/
+.navbar .divider-vertical {
+  margin:0;
+}
+.navbar .divider-vertical {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #eee;
+}
+
+.navbar-inner {
+    background-color: #fafafa;
+    background-image: linear-gradient(to bottom, #eee, #f2f2f2);
+    background-repeat: repeat-x;
+}
