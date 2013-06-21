@@ -9,9 +9,9 @@ $user = isset($_SESSION['login']) ? $_SESSION['login'] : "";
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<title>EDITOR</title>
+		<title>OTRS Tool</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="assets/datepicker/css/datepicker.css" rel="stylesheet">
@@ -35,12 +35,15 @@ $user = isset($_SESSION['login']) ? $_SESSION['login'] : "";
 		</style>
 		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 		<link href="assets/css/style.css" rel="stylesheet" media="screen">
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+		<script src="assets/datepicker/js/bootstrap-datepicker.js"></script>
 	</head>
 	<body>
 				<!-- nav -->
 				<div class="navbar navbar-fixed-top">
 					<div class="navbar-inner">
-						<div class="container-fluid">
+						<div class="container">
 							<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -56,9 +59,17 @@ $user = isset($_SESSION['login']) ? $_SESSION['login'] : "";
 									<li class="divider-vertical"></li>
 									<li><a href="#home"><i class="icon-home"></i> Dashboard</a></li>
 									<li class="divider-vertical"></li>
-									<li><a href="#editor"><i class="icon-wrench"></i> Editor</a></li>
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											<i class="icon-wrench"></i> Editor <b class="caret"></b>
+										</a>
+											<ul class="dropdown-menu">
+												<li><a href="?Action=ticketEditor">Ticket Editor</a></li>
+												<li><a href="?Action=causeCodeEditor">Cause Code Tool</a></li>
+											</ul>
+									</li>
 									<li class="divider-vertical"></li>
-									<li><a href="#about"><i class="icon-eye-open"></i> Monitoring</a></li>
+									<li><a href="?Action=monitoring"><i class="icon-eye-open"></i> Monitoring</a></li>
 									<li class="divider-vertical"></li>
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -79,23 +90,17 @@ $user = isset($_SESSION['login']) ? $_SESSION['login'] : "";
 				</div>
 				<!-- end nav -->				
 
-	<div class="container-fluid">
-    <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input class="span2 datepicker" size="16" type="text" value="12-02-2012">
-    <span class="add-on"><i class="icon-calendar"></i></span>
-    </div>
-    <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-    <input class="span2 datepicker" size="16" type="text" value="12-02-2012">
-    <span class="add-on"><i class="icon-calendar"></i></span>
-    </div>
+	<div class="container">
+		<?php
+			if(isset($_GET['Action'])){
+				if(FILE_EXISTS("./pages/".$_GET['Action'].".php")){
+					include("./pages/".$_GET['Action'].".php");
+				}else{
+					include("./pages/error.php");
+				}
+			}
+		?>
 	</div>
 
-
-		<script src="assets/js/jquery.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/datepicker/js/bootstrap-datepicker.js"></script>
-		<script>
-			$('.datepicker').datepicker()
-		</script>
 	</body>
 </html>
